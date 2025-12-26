@@ -209,12 +209,12 @@ void calculateSpO2() {
     return;
   }
 
-  if (stableCount < SKIP_FIRST_BUFFERS) {
-    stableCount++;
-    showMessage("Measuring...");
-    digitalWrite(BUZZER_PIN, HIGH);
-    return;
-  }
+  // if (stableCount < SKIP_FIRST_BUFFERS) {
+  //   stableCount++;
+  //   showMessage("Measuring...");
+  //   digitalWrite(BUZZER_PIN, HIGH);
+  //   return;
+  // }
 
   for (int i = 0; i < BUFFER_SIZE; i++) {
     double acRed = redBuffer[i] - dcRed;
