@@ -131,7 +131,7 @@ void setup() {
 
   // Khởi tạo giá trị lọc ban đầu
   filteredHR = 70;
-  filteredSpO2 = 95;
+  filteredSpO2 = 100;
 }
 
 void loop() {
