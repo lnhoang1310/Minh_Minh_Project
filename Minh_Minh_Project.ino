@@ -40,8 +40,8 @@ MAX30105 particleSensor;
 #define SAMPLE_RATE   200
 #define SPO2_LOW      94
 
-#define FINGER_ON_DC   30000
-#define SKIP_FIRST_BUFFERS  2
+#define FINGER_ON_DC   20000
+#define SKIP_FIRST_BUFFERS  1
 
 /* Buffer */
 uint32_t irBuffer[BUFFER_SIZE];
@@ -209,12 +209,12 @@ void calculateSpO2() {
     return;
   }
 
-  // if (stableCount < SKIP_FIRST_BUFFERS) {
-  //   stableCount++;
-  //   showMessage("Measuring...");
-  //   digitalWrite(BUZZER_PIN, HIGH);
-  //   return;
-  // }
+  if (stableCount < SKIP_FIRST_BUFFERS) {
+    stableCount++;
+    showMessage("Measuring...");
+    digitalWrite(BUZZER_PIN, HIGH);
+    return;
+  }
 
   for (int i = 0; i < BUFFER_SIZE; i++) {
     double acRed = redBuffer[i] - dcRed;
