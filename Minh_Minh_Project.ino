@@ -34,6 +34,8 @@ MAX30105 particleSensor;
 
 #define SAMPLE_RATE   200
 #define SPO2_LOW      94
+#define HR_LOW 40
+#define HR_HIGH 120
 #define BUFFER_SIZE   100
 #define IR_FINGER_THRESHOLD 20000
 #define SKIP_SAMPLE_COUNT   20
@@ -49,8 +51,8 @@ int8_t validHeartRate;
 #define HR_ALPHA    0.4
 #define SPO2_ALPHA  0.3
 
-float filteredHR = 0;
-float filteredSpO2 = 0;
+float filteredHR = 70;
+float filteredSpO2 = 95;
 
 uint8_t skipCount = 0;
 
@@ -142,7 +144,7 @@ void loop() {
 
   displayResult();
 
-  digitalWrite(BUZZER_PIN, filteredSpO2 < SPO2_LOW ? LOW : HIGH);
+  digitalWrite(BUZZER_PIN, (filteredSpO2 < SPO2_LOW || filteredHR < HR_LOW || filteredHR > HR_HIGH) ? LOW : HIGH);
 
   if (Firebase.ready() && signupOK && millis() - sendDataPrevMillis > 5000) {
     pushDataToFirebase();
