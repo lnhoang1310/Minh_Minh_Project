@@ -128,8 +128,9 @@ void loop() {
     &heartRate, &validHeartRate
   );
 
-  if (validHeartRate && heartRate > 40 && heartRate < 200) {
+  if (validHeartRate && heartRate < 150) {
     filteredHR = (filteredHR == 0) ? heartRate : HR_ALPHA * heartRate + (1 - HR_ALPHA) * filteredHR;
+    if(filteredHR > 100) filteredHR -= 15;
   }
 
   if (validSpO2 && spo2 > 70 && spo2 <= 100) {
